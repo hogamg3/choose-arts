@@ -1,0 +1,249 @@
+if _G.CanOpenCD == 'Y' or _G.CanOpenCD == nil then
+    _G.CanOpenCD = 'Y'
+end
+
+local TweenService = game:GetService("TweenService")
+local SoundService = game:GetService("SoundService")
+local UserInputService = game:GetService("UserInputService") -- For platform detection
+
+-- Create the UI Frame
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Decal = Instance.new("ImageLabel")
+local CloseButton = Instance.new("TextButton")
+local LeftButton = Instance.new("TextButton")
+local RightButton = Instance.new("TextButton")
+local TitleText = Instance.new("TextLabel")  -- Add TitleText
+
+ScreenGui.Name = "CustomUI"
+ScreenGui.Parent = game:GetService("CoreGui")
+
+Frame.Name = "MainFrame"
+Frame.Size = UDim2.new(0.3, 0, 0.4, 0)
+Frame.Position = UDim2.new(0.35, 0, 0.30, 0)
+Frame.BackgroundTransparency = 0.9
+Frame.Parent = ScreenGui
+
+-- Add Decal Image to the Frame
+Decal.Name = "BackgroundDecal"
+Decal.Size = UDim2.new(1, 0, 1, 0)
+Decal.Position = UDim2.new(0, 0, 0, 0)
+Decal.Image = "rbxassetid://6317538950"
+Decal.BackgroundTransparency = 1
+Decal.Parent = Frame
+
+-- Add rounded corners to the Decal
+local DecalCorner = Instance.new("UICorner")
+DecalCorner.CornerRadius = UDim.new(0, 10)
+DecalCorner.Parent = Decal
+
+-- Add Title Text to the Frame
+TitleText.Name = "TitleText"
+TitleText.Size = UDim2.new(0.8, 0, 0.15, 0)  -- Width and height adjustments
+TitleText.Position = UDim2.new(0.1, 0, 0.015, 0)  -- Centered horizontally at the top
+TitleText.BackgroundTransparency = 1
+TitleText.TextColor3 = Color3.fromRGB(255, 255, 255)
+TitleText.Text = "Choose Drawing Grid Size"
+TitleText.Font = Enum.Font.Cartoon
+TitleText.TextSize = 40 -- Default text size for PC
+TitleText.TextWrapped = true
+TitleText.Parent = Frame
+
+-- Function to adjust text sizes for mobile users
+local function adjustForMobile()
+    -- Check if the device is mobile
+    if UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled then
+        -- Adjust text sizes for mobile users
+        CloseButton.TextSize = 24
+        LeftButton.TextSize = 44
+        RightButton.TextSize = 44
+        TitleText.TextSize = 20
+    end
+end
+
+-- Apply mobile adjustments
+adjustForMobile()
+
+-- Create Image in Bottom-Left of the Frame
+local BottomLeftImage = Instance.new("ImageLabel")
+BottomLeftImage.Name = "BottomLeftImage"
+BottomLeftImage.Size = UDim2.new(0.11, 0, 0.15, 0) -- Adjust the size as needed
+BottomLeftImage.Position = UDim2.new(0.06, 0, 0.825, 0) -- Bottom-left position
+BottomLeftImage.Image = "rbxassetid://13217634061" -- Replace with the image asset ID you want to use
+BottomLeftImage.BackgroundTransparency = 1 -- Make background transparent
+BottomLeftImage.Parent = Frame
+
+-- Add rounded corners to the Image (Optional)
+local ImageCorner = Instance.new("UICorner")
+ImageCorner.CornerRadius = UDim.new(0, 10)
+ImageCorner.Parent = BottomLeftImage
+
+-- Create Text next to the Bottom-Left Image
+local BottomLeftText = Instance.new("TextLabel")
+BottomLeftText.Name = "BottomLeftText"
+BottomLeftText.Size = UDim2.new(0.25, 0, 0.15, 0) -- Adjust the size as needed
+BottomLeftText.Position = UDim2.new(0.18, 0, 0.825, 0) -- Position it to the right of the image
+BottomLeftText.BackgroundTransparency = 1 -- Make background transparent
+BottomLeftText.Text = "Made By Skibidi Sigma" -- Set the text
+BottomLeftText.TextColor3 = Color3.fromRGB(255, 0, 0) -- Text color
+BottomLeftText.Font = Enum.Font.Cartoon -- Text font
+BottomLeftText.TextSize = 20 -- Adjust text size
+BottomLeftText.TextXAlignment = Enum.TextXAlignment.Left -- Align text to the left
+BottomLeftText.Parent = Frame
+
+-- Create the Sound for Hover
+local hoverSound = Instance.new("Sound")
+hoverSound.SoundId = "rbxassetid://656998369"
+hoverSound.Parent = SoundService
+
+-- Create the Sound for Click
+local clickSound = Instance.new("Sound")
+clickSound.SoundId = "rbxassetid://12221967"
+clickSound.Parent = SoundService
+
+-- Create the Sound for Appearance
+local appearanceSound = Instance.new("Sound")
+appearanceSound.SoundId = "rbxassetid://6228337171"
+appearanceSound.Parent = SoundService
+
+-- Function to play sound on hover
+local function playHoverSound()
+    hoverSound:Play()
+end
+
+-- Function to play sound on click
+local function playClickSound()
+    clickSound:Play()
+end
+
+-- Function to execute when the Left Button is clicked
+local function executeLeftButtonAction()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ocfi/7x7-grid/main/7x7abcdefghijklmnobqrscupwxyz"))()
+end
+
+-- Function to execute when the Right Button is clicked
+local function executeRightButtonAction()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ocfi/11x11-grid-updated/main/11x11updated"))()
+end
+
+-- Function to play sound on appearance
+local function playAppearanceSound()
+    appearanceSound:Play()
+end
+
+-- Tweening for smooth appearance animation
+local function showUI()
+    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+    local goal = {Size = UDim2.new(0.3, 0, 0.4, 0), Position = UDim2.new(0.35, 0, 0.30, 0), BackgroundTransparency = 0.9}
+    local tween = TweenService:Create(Frame, tweenInfo, goal)
+    
+    tween:Play()
+    playAppearanceSound()
+end
+
+-- Tweening for smooth closing animation
+local function closeUI()
+    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+    local goal = {Size = UDim2.new(0, 0, 0, 0), BackgroundTransparency = 1}
+    local tween = TweenService:Create(Frame, tweenInfo, goal)
+    
+    tween:Play()
+    tween.Completed:Connect(function()
+        ScreenGui:Destroy()
+    end)
+end
+
+-- Create the Close Button
+CloseButton.Name = "CloseButton"
+CloseButton.Size = UDim2.new(0.1, 0, 0.12, 0)
+CloseButton.Position = UDim2.new(0.9, 0, 0, 0)
+CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+CloseButton.BorderSizePixel = 0
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.Text = "X"
+CloseButton.Font = Enum.Font.Cartoon
+CloseButton.TextSize = 34 -- Default text size for PC
+CloseButton.TextWrapped = true
+CloseButton.Parent = Frame
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 10)
+UICorner.Parent = CloseButton
+
+-- Create the Left Button
+LeftButton.Name = "LeftButton"
+LeftButton.Size = UDim2.new(0.4, 0, 0.6, 0)
+LeftButton.Position = UDim2.new(0.068, 0, 0.22, 0)
+LeftButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+LeftButton.BorderSizePixel = 0
+LeftButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+LeftButton.Text = "7x7"
+LeftButton.Font = Enum.Font.Cartoon
+LeftButton.TextSize = 55 -- Default text size for PC
+LeftButton.TextWrapped = true
+LeftButton.Parent = Frame
+
+-- Add an image to the Left Button
+local LeftImage = Instance.new("ImageLabel")
+LeftImage.Size = UDim2.new(1, 0, 1, 0)
+LeftImage.Position = UDim2.new(0, 0, 0, 0)
+LeftImage.Image = "rbxassetid://2492789679"
+LeftImage.BackgroundTransparency = 1
+LeftImage.Parent = LeftButton
+
+-- Add rounded corners to the Left Button
+local LeftCorner = Instance.new("UICorner")
+LeftCorner.CornerRadius = UDim.new(0, 10)
+LeftCorner.Parent = LeftButton
+
+-- Create the Right Button
+RightButton.Name = "RightButton"
+RightButton.Size = UDim2.new(0.4, 0, 0.6, 0)
+RightButton.Position = UDim2.new(0.53, 0, 0.22, 0)
+RightButton.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+RightButton.BorderSizePixel = 0
+RightButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+RightButton.Text = "11x11"
+RightButton.Font = Enum.Font.Cartoon
+RightButton.TextSize = 55 -- Default text size for PC
+RightButton.TextWrapped = true
+RightButton.Parent = Frame
+
+-- Add an image to the Right Button
+local RightImage = Instance.new("ImageLabel")
+RightImage.Size = UDim2.new(1, 0, 1, 0)
+RightImage.Position = UDim2.new(0, 0, 0, 0)
+RightImage.Image = "rbxassetid://120070587853466"
+RightImage.BackgroundTransparency = 1
+RightImage.Parent = RightButton
+
+-- Add rounded corners to the Right Button
+local RightCorner = Instance.new("UICorner")
+RightCorner.CornerRadius = UDim.new(0, 10)
+RightCorner.Parent = RightButton
+
+-- Connect the hover sound to buttons
+CloseButton.MouseEnter:Connect(playHoverSound)
+LeftButton.MouseEnter:Connect(playHoverSound)
+RightButton.MouseEnter:Connect(playHoverSound)
+
+-- Connect the click sound to buttons
+CloseButton.MouseButton1Click:Connect(function()
+    playClickSound()
+    closeUI()
+end)
+
+LeftButton.MouseButton1Click:Connect(function()
+    playClickSound()
+    executeLeftButtonAction()
+closeUI()
+end)
+
+RightButton.MouseButton1Click:Connect(function()
+    playClickSound()
+    executeRightButtonAction()
+closeUI()
+end)
+
+-- Display the UI with a smooth animation
+showUI()
