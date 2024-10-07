@@ -168,7 +168,7 @@ end
 
 -- Function to execute when the Left Button is clicked
 local function executeLeftButtonAction()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/ocfi/7x7-grid/main/7x7abcdefghijklmnobqrscupwxyz"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/hogamg3/7x7/refs/heads/main/deobuf"))()
 end
 
 -- Function to execute when the Third Button is clicked
