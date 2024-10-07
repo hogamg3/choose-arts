@@ -183,7 +183,7 @@ end
 
 -- Function to execute when the Right Button is clicked
 local function executeRightButtonAction()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/ocfi/11x11-grid-updated/main/11x11updated"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/hogamg3/11x11/refs/heads/main/deobuf"))()
 end
 
 -- Function to play sound on appearance
